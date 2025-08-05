@@ -36,19 +36,18 @@ pipeline {
             }
         }
 
-        stage('Kubernetes Deploy') {
-           steps {
+     stage('Kubernetes Deploy') {
+    steps {
         withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')]) {
             sh """
-                kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml
-                kubectl --kubeconfig=${KUBECONFIG} apply -f service.yaml
+                export KUBECONFIG=\$KUBECONFIG
+                kubectl apply -f deployment.yaml
+                kubectl apply -f service.yaml
             """
-          }
         }
-      }        
-     
-   }
-
+    }
+ 
+  }
     post {
         success {
             echo '✅ Deployment Successful!'
