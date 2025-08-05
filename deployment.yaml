@@ -16,7 +16,7 @@ spec:
         - name: regcred
       containers:
         - name: java-demo
-          image: yourdockerhubusername/java-demo:latest
+          image: mavishek/java-demo:latest
           ports:
             - containerPort: 8080
 
