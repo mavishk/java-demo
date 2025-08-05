@@ -2,18 +2,18 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "mavishek/java-demo"
+        DOCKER_IMAGE = "mavishk/java-demo"
     }
 
     tools {
-        maven 'MAVEN3'         // must match Maven tool name in Jenkins
-        jdk 'JDK11'            // must match JDK tool name in Jenkins
+        maven 'MAVEN3'         // Must match Jenkins tool name
+        jdk 'JDK11'            // Must match Jenkins tool name
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/mavishk/java-demo.git  // replace with your GitHub URL
+                git 'https://github.com/mavishk/java-demo.git'
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
 
         stage('Docker Push') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push $DOCKER_IMAGE:latest
@@ -61,4 +61,3 @@ pipeline {
         }
     }
 }
-
