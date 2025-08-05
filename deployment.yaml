@@ -12,6 +12,8 @@ spec:
       labels:
         app: java-demo
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: java-demo
           image: yourdockerhubusername/java-demo:latest
