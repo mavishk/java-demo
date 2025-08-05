@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "mavishk/java-demo"
+        DOCKER_IMAGE = "mavishek/java-demo"
     }
 
 
