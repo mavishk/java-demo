@@ -5,7 +5,6 @@ pipeline {
         DOCKER_IMAGE = "mavishek/java-demo"
     }
 
-
     stages {
         stage('Checkout') {
             steps {
@@ -36,18 +35,19 @@ pipeline {
             }
         }
 
-     stage('Kubernetes Deploy') {
-    steps {
-        withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')]) {
-            sh """
-                export KUBECONFIG=\$KUBECONFIG
-                kubectl apply -f deployment.yaml
-                kubectl apply -f service.yaml
-            """
+        stage('Kubernetes Deploy') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')]) {
+                    sh """
+                        export KUBECONFIG=\$KUBECONFIG
+                        kubectl apply -f deployment.yaml
+                        kubectl apply -f service.yaml
+                    """
+                }
+            }
         }
     }
- 
-  }
+
     post {
         success {
             echo '✅ Deployment Successful!'
@@ -57,3 +57,4 @@ pipeline {
         }
     }
 }
+
