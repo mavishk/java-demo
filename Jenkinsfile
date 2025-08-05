@@ -5,10 +5,6 @@ pipeline {
         DOCKER_IMAGE = "mavishk/java-demo"
     }
 
-    tools {
-        maven 'MAVEN3'         // Must match Jenkins tool name
-        jdk 'JDK11'            // Must match Jenkins tool name
-    }
 
     stages {
         stage('Checkout') {
